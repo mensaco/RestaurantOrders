@@ -1,0 +1,26 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {  
+
+    
+    body {
+        font-size: 16px;
+        background-size: cover;
+        background-attachment: fixed;
+        /* background-image: url("/ai/background-7206401.ai"); */
+    }
+
+    button {
+        @apply px-2 py-1 bg-gray-300 hover:bg-gray-400 border border-gray-500;
+    }
+
+    .striped > div:nth-of-type(6n) ,
+    .striped > div:nth-of-type(6n-1),
+    .striped > div:nth-of-type(6n-2)
+    {
+        @apply bg-gray-300;
+    }
+    
+}

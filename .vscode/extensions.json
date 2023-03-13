@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "formulahendry.auto-close-tag",
+        "emeraldwalk.RunOnSave",
+        "naumovs.color-highlight",
+        "ritwickdey.LiveServer",
+        "bradlc.vscode-tailwindcss"
+    ]
+}

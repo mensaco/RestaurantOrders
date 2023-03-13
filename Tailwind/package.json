@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev": "npx browserslist@latest --update-db && npx tailwindcss -i Tailwind.css -o ../wwwroot/css/Styles.css",
+    "prod": "npx browserslist@latest --update-db && npx tailwindcss -i Tailwind.css -o ../wwwroot/css/Styles.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.2.6"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.0"
+  }
+}

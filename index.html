@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+
+
+
+    <!-- <pre data-bind="text: ko.toJSON($root, null,2)"></pre> -->
+
+    <h3>Ihre Bestellung</h3>
+    <div data-bind="foreach: yourOrder" class="h-36 overflow-y-scroll">
+        <!-- [{"name":"Salat variant mit gebackenem Camembert","size":"normal","price":"11,90","currency":"€"},2] -->
+        
+        <div class="p-3 bg-gray-100 flex gap-x-3">
+            <div><button type="button" data-bind="click: ($data) => $root.removeItem($data)">-1</button> </div>
+            <div data-bind="text: $data[1] + ' x '"></div>
+            <div data-bind="text: $data[0].name"></div>
+            <div data-bind="text: $data[0].size"></div>
+            <div data-bind="text: $data[0].price +' ' + $data[0].currency"></div>
+        </div>
+
+        
+
+
+    </div>
+
+
+    <div data-bind="foreach: menuItems" class="grid gap-y-3">
+        <div class="p-3 bg-gray-100">
+            <div data-bind="text: $data.name"></div>
+            <div class="flex gap-x-3">
+                <div data-bind="text: $data.size"></div>
+                <div data-bind="text: $data.price +' ' + $data.currency"></div>
+            </div>
+            <div><button type="button" data-bind="click: ($data) => $root.addItem($data)">+1</button> </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="static bottom-3 p-3 w-full max-w-3xl mx-auto text-gray-500 flex justify-between items-center">
+        <div>Free SVG Background by <a target="_blank" href="https://bgjar.com">BGJar</a></div>
+
+        <div>Copyright mensaco 2023</div>
+    </div>
+</body>
+
+<script src="/js/menu.data.js"></script>
+<script src="/js/knockout-latest.min.js"></script>
+<script src="/js/index.ko.js"></script>
+
+</html>

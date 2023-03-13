@@ -1,0 +1,23 @@
+{
+    "emeraldwalk.runonsave": {
+        "emeraldwalk.runonsave": {},
+        "commands": [
+            {
+                "match": "\\.html$",
+                "cmd": "RebuildTailwindCss.bat"
+            },
+            {
+                "match": "\\.css$",
+                "cmd": "RebuildTailwindCss.bat"
+            },
+            {
+                "match": "\\.txt$",
+                "cmd": "echo 'I am a .txt file ${file}.'"
+            },
+            {
+                "match": "\\.js$",
+                "cmd": "RebuildTailwindCss.bat"
+            }
+        ]
+    }
+}
