@@ -15,44 +15,101 @@
 
 
     <!-- <pre data-bind="text: ko.toJSON($root, null,2)"></pre> -->
-
-    <h3>Ihre Bestellung</h3>
-    <div data-bind="foreach: yourOrder" class="h-36 overflow-y-scroll">
-        <!-- [{"name":"Salat variant mit gebackenem Camembert","size":"normal","price":"11,90","currency":"€"},2] -->
-        
-        <div class="p-3 bg-gray-100 flex gap-x-3">
-            <div><button type="button" data-bind="click: ($data) => $root.removeItem($data)">-1</button> </div>
-            <div data-bind="text: $data[1] + ' x '"></div>
-            <div data-bind="text: $data[0].name"></div>
-            <div data-bind="text: $data[0].size"></div>
-            <div data-bind="text: $data[0].price +' ' + $data[0].currency"></div>
-        </div>
-
-        
+    
 
 
-    </div>
+    <div class="flex flex-col h-screen gap-y-3 bg-slate-900">
+
+        <!-- ko if: yourOrder && yourOrder().length > 0 -->
+
+        <div class="h-48 overflow-y-scroll to-slate-700 from-slate-900 bg-gradient-to-b px-3 py-3 text-slate-900"
+            id="porosia">
+            <!-- ko foreach: yourOrder -->
+            <div class="p-3 bg-green-100 border border-green-300 flex justify-between items-center mb-3">
+                <div class="flex gap-x-3">
+                    <div class="whitespace-nowrap"><span class="font-bold text-rose-700" data-bind="text: $data[1]" ></span>x</div>
+                    <div data-bind="text: $root.truncate($data[0].name, 25)"></div>
+                </div>
 
 
-    <div data-bind="foreach: menuItems" class="grid gap-y-3">
-        <div class="p-3 bg-gray-100">
-            <div data-bind="text: $data.name"></div>
-            <div class="flex gap-x-3">
-                <div data-bind="text: $data.size"></div>
-                <div data-bind="text: $data.price +' ' + $data.currency"></div>
+                <div class="whitespace-nowrap">
+                    <button type="button" data-bind="click: ($data) => $root.removeItem($data)"
+                        class="relative rounded px-3 pt-[3px] pb-[4px] overflow-hidden group bg-red-600 hover:bg-gradient-to-r hover:from-red-600 hover:to-red-500 text-white hover:ring-2 hover:ring-offset-2 hover:ring-red-500 transition-all ease-out duration-300">
+                        <span
+                            class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                        <span class="relative">-1</span>
+                    </button>
+
+                    <button type="button" data-bind="click: ($data) => $root.addItem($data[0])"
+                        class="relative rounded px-3 pt-[3px] pb-[4px] overflow-hidden group bg-green-600 hover:bg-gradient-to-r hover:from-green-600 hover:to-green-500 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-500 transition-all ease-out duration-300">
+                        <span
+                            class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                        <span class="relative">+1</span>
+                    </button>
+                </div>
             </div>
-            <div><button type="button" data-bind="click: ($data) => $root.addItem($data)">+1</button> </div>
+            <!-- /ko -->
+            <div class="flex justify-between items-end">
+                <div class="text-amber-400">Gesamtsumme: <span data-bind="text: total()"></span> €</div>
+                <div>
+                    <button type="button"
+                        class="relative rounded px-3 pt-[3px] pb-[4px] overflow-hidden group bg-amber-600 hover:bg-gradient-to-r hover:from-amber-600 hover:to-amber-500 text-white hover:ring-2 hover:ring-offset-2 hover:ring-amber-500 transition-all ease-out duration-300">
+                        <span
+                            class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                        <span class="relative">abschicken</span>
+                    </button>
+                </div>
+            </div>
+
         </div>
 
+        <!-- /ko -->
+
+        <!-- ko if: !(yourOrder && yourOrder().length > 0) -->
+        <div class="h-48 overflow-y-scroll to-green-700 from-green-900 bg-gradient-to-b px-3 py-3 text-white">
+            <h3 class="text-xl mb-3">Ihre Bestellung wird hier angezeigt</h3>
+            <p class="text-green-200">Auf das Menü unten, neben jedem Menüpunkt ist ein blauer Button. Klicken Sie bitte
+                darauf um das entsprechende Artikel zu bestellen.</p>
+        </div>
+        <!-- /ko -->
+
+
+
+        <div data-bind="foreach: menuItems" class="grid gap-y-3 px-3 py-3 flex-1 bg-gray-700 overflow-y-scroll">
+            <div class="p-3 bg-gray-100 flex justify-between">
+                <div class="w-full">
+                    <div data-bind="text: $data.name"></div>
+                    <div class="flex gap-x-3 text-sm text-gray-700">
+                        <div data-bind="text: $data.size"></div>
+                        <div data-bind="text: $data.price +' ' + $data.currency"></div>
+                    </div>
+                </div>
+
+                <div>
+
+                    <button type="button" data-bind="click: ($data) => $root.addItem($data)"
+                        class="relative rounded px-3 pt-[3px] pb-[4px] overflow-hidden group bg-green-600 relative hover:bg-gradient-to-r hover:from-green-600 hover:to-green-500 text-white hover:ring-2 hover:ring-offset-2 hover:ring-green-500 transition-all ease-out duration-300">
+                        <span
+                            class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
+                        <span class="relative">+1</span>
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="static  px-3 py-3 text-amber-500 text-center bg-amber-900">
+            <div>Copyright mensaco 2023</div>
+        </div>
+
+
+
     </div>
 
 
-
-    <div class="static bottom-3 p-3 w-full max-w-3xl mx-auto text-gray-500 flex justify-between items-center">
-        <div>Free SVG Background by <a target="_blank" href="https://bgjar.com">BGJar</a></div>
-
-        <div>Copyright mensaco 2023</div>
-    </div>
 </body>
 
 <script src="/js/menu.data.js"></script>

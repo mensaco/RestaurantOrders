@@ -38,6 +38,7 @@ const prepareParams = (tagName) => {
 
 
 
+
 class MainViewModel {
     constructor() {
         var self = this;
@@ -52,8 +53,15 @@ class MainViewModel {
                 const l = Object.entries(o)    
                 const list = l.map(x => [JSON.parse(x[0]), x[1]]) 
                 self.yourOrder(list)
+                self.scrollToBottom()
+        }
+
+        self.scrollToBottom = () => {
+            const porosia = document.getElementById("porosia")
+            porosia.scrollTop = porosia.scrollHeight;
         }
         
+        self.truncate = (str, n) => (str.length > n) ? str.slice(0, n-1) + '…' : str;
 
         self.addItem = function(item){
             const itemStr = JSON.stringify(item)
@@ -78,6 +86,14 @@ class MainViewModel {
                 self.updateYourOrder()         
             }
         }
+
+        this.total = ko.pureComputed(function() {
+            const total = self.yourOrder().map(x => x[0].price * x[1]).reduce(function(a, b){
+                return a + b;
+              })
+
+            return (Math.round(total*100)/100.0).toFixed(2);
+        }, this);
 
     }
 }
